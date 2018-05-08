@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load blog_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,47 +75,42 @@
             <aside class="col-md-4">
                 {% block toc %}
                 {% endblock toc %}
+                {% get_recent_posts as recent_post_list %}
                 <div class="widget widget-recent-posts">
                     <h3 class="widget-title">最新文章</h3>
                     <ul>
-                        <li>
-                            <a href="#">Django 博客开发入门教程：前言</a>
-                        </li>
-                        <li>
-                            <a href="#">Django 博客使用 Markdown 自动生成文章目录</a>
-                        </li>
-                        <li>
-                            <a href="#">部署 Django 博客</a>
-                        </li>
+                        {% for post in recent_post_list %}
+                            <li>
+                                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                            </li>
+                        {% empty %}
+                            no post
+                        {% endfor %}
                     </ul>
                 </div>
+                {% archives as date_list %}
                 <div class="widget widget-archives">
                     <h3 class="widget-title">归档</h3>
                     <ul>
-                        <li>
-                            <a href="#">2017 年 5 月</a>
-                        </li>
-                        <li>
-                            <a href="#">2017 年 4 月</a>
-                        </li>
-                        <li>
-                            <a href="#">2017 年 3 月</a>
-                        </li>
+                        {% for date in date_list %}
+                            <li>
+                                <a href="#">{{ date.year }}年{{ date.month }}月</a>
+                            </li>
+                        {% empty %}
+                            no archive
+                        {% endfor %}
                     </ul>
                 </div>
-
+                {% get_categories as categories_list %}
                 <div class="widget widget-category">
                     <h3 class="widget-title">分类</h3>
                     <ul>
-                        <li>
-                            <a href="#">Django 博客教程 <span class="post-count">(13)</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Python 教程 <span class="post-count">(11)</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Django 用户认证 <span class="post-count">(8)</span></a>
-                        </li>
+                        {% for category in categories_list %}
+                            <li>
+                                <a href="#">{{ category.name }}<span class="post-count">(13)</span></a>
+                            </li>
+                        {% empty %}
+                        {% endfor %}
                     </ul>
                 </div>
 
