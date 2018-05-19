@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Black &amp; White</title>
+    <title>Steins;Gate</title>
 
     <!-- meta -->
     <meta charset="UTF-8">
@@ -52,8 +52,8 @@
                 <div id="header-search-box">
                     <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
                     <div id="search-form" class="search-form">
-                        <form role="search" method="get" id="searchform" action="#">
-                            <input type="search" placeholder="搜索" required>
+                        <form role="search" method="get" id="searchform" action="{% url 'blog:search' %}">
+                            <input type="search" name="q" placeholder="搜索" required>
                             <button type="submit"><span class="ion-ios-search-strong"></span></button>
                         </form>
                     </div>
@@ -109,7 +109,9 @@
                     <ul>
                         {% for category in categories_list %}
                             <li>
-                                <a href="{% url 'blog:categories' category.pk %}">{{ category.name }}<span class="post-count">(13)</span></a>
+                                <a href="{% url 'blog:categories' category.pk %}">{{ category.name }}
+                                    <span class="post-count">({{ category.num_posts }})</span>
+                                </a>
                             </li>
                         {% empty %}
                         {% endfor %}
@@ -117,42 +119,20 @@
                 </div>
 
                 <div class="widget widget-tag-cloud">
-                    <h3 class="widget-title">标签云</h3>
-                    <ul>
-                        <li>
-                            <a href="#">Django</a>
-                        </li>
-                        <li>
-                            <a href="#">Python</a>
-                        </li>
-                        <li>
-                            <a href="#">Java</a>
-                        </li>
-                        <li>
-                            <a href="#">笔记</a>
-                        </li>
-                        <li>
-                            <a href="#">文档</a>
-                        </li>
-                        <li>
-                            <a href="#">AngularJS</a>
-                        </li>
-                        <li>
-                            <a href="#">CSS</a>
-                        </li>
-                        <li>
-                            <a href="#">JavaScript</a>
-                        </li>
-                        <li>
-                            <a href="#">Snippet</a>
-                        </li>
-                        <li>
-                            <a href="#">jQuery</a>
-                        </li>
-                    </ul>
+                  <h3 class="widget-title">标签云</h3>
+                  {% get_tags as tag_list %}
+                  <ul>
+                    {% for tag in tag_list %}
+                    <li>
+                      <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>
+                    </li>
+                    {% empty %}
+                    暂无标签！
+                    {% endfor %}
+                  </ul>
                 </div>
                 <div class="rss">
-                    <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
+                    <a href="{% url 'rss' %}"><span class="ion-social-rss-outline"></span> RSS 订阅</a>
                 </div>
             </aside>
         </div>

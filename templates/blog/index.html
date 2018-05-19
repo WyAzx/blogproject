@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block main %}
+    {% if error_msg %}
+        <p>{{ error_msg }}</p>
+    {% endif %}
     {% for post in post_list %}
         <article class="post post-{{ post.pk }}">
             <header class="entry-header">
@@ -25,25 +28,45 @@
     {% empty %}
         <div class="no-post">暂时还没有发布的文章！</div>
     {% endfor %}
-    <!-- 简单分页效果
-    <div class="pagination-simple">
-        <a href="#">上一页</a>
-        <span class="current">第 6 页 / 共 11 页</span>
-        <a href="#">下一页</a>
-    </div>
-    -->
+{#    <!-- 简单分页效果#}
+{#    {% if is_paginated %}#}
+{#    <div class="pagination-simple">#}
+{#        {% if page_obj.has_previous %}#}
+{#        <a href="?page={{ page_obj.previous_page_number }}">上一页</a>#}
+{#        {% endif %}#}
+{#        <span class="current">第 {{ page_obj.number }} 页 / 共 {{ paginator.num_pages }} 页</span>#}
+{#        {% if page_obj.has_next %}#}
+{#        <a href="?page={{ page_obj.next_page_number }}">下一页</a>#}
+{#        {% endif %}#}
+{#    </div>#}
+{#    {% endif %}#}
+{#    -->#}
+    {% if is_paginated %}
     <div class="pagination">
-        <ul>
-            <li><a href="">1</a></li>
-            <li><a href="">...</a></li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li class="current"><a href="">6</a></li>
-            <li><a href="">7</a></li>
-            <li><a href="">8</a></li>
-            <li><a href="">...</a></li>
-            <li><a href="">11</a></li>
-        </ul>
+      {% if first %}
+        <a href="?page=1">1</a>
+      {% endif %}
+      {% if left %}
+        {% if left_has_more %}
+            <span>...</span>
+        {% endif %}
+        {% for i in left %}
+            <a href="?page={{ i }}">{{ i }}</a>
+        {% endfor %}
+      {% endif %}
+      <a href="?page={{ page_obj.number }}" style="color: #ff4050">{{ page_obj.number }}</a>
+      {% if right %}
+        {% for i in right %}
+            <a href="?page={{ i }}">{{ i }}</a>
+        {% endfor %}
+        {% if right_has_more %}
+            <span>...</span>
+        {% endif %}
+      {% endif %}
+      {% if last %}
+        <a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+      {% endif %}
     </div>
-{% endblock main %}
+    {% endif %}
+    {% endblock main %}
 
