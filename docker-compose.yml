@@ -8,7 +8,9 @@ services:
     command: /gunicorn.sh
 
   nginx:
-    build: ./compose/nginx
+    build:
+      context: .
+      deckerfile: ./compose/nginx
     depends_on:
       - django
 
