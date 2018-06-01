@@ -10,7 +10,7 @@ services:
   nginx:
     build:
       context: .
-      deckerfile: ./compose/nginx
+      dockerfile: ./compose/nginx
     depends_on:
       - django
 
