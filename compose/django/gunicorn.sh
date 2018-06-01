@@ -2,4 +2,4 @@
 python /app/manage.py collectstatic --noinput
 python /app/manage.py migrate
 
-/usr/local/bin/gunicorn blogproject.wsgi:application -w 4 -b 127.0.0.1:8011 --chdir=/app
+gunicorn blogproject.wsgi -b 127.0.0.1:8011 --chdir=/app
