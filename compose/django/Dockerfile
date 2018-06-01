@@ -18,8 +18,8 @@ COPY . /app
 
 RUN chown -R django /app
 
-RUN mkdir /static
-RUN chown -R django /static
+RUN mkdir /app/static
+RUN chown -R django /app/static
 
 USER django
 

@@ -25,7 +25,7 @@ SECRET_KEY = 'omiyj18f@oeq_7hy0am3w+ei!jp*&%b@q^ghv%j@6d1x55htq)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.ec2-13-115-51-188.ap-northeast-1.compute.amazonaws.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '13.231.37.211']
 
 
 # Application definition
@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 HAYSTACK_CONNECTIONS = {
     'default': {
