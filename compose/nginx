@@ -1,3 +1,2 @@
 FROM nginx:latest
-ADD nginx.conf /etc/nginx/conf.d/django_blog.conf
-RUN rm /etc/nginx/conf.d/default.conf
+ADD nginx.conf /etc/nginx/conf.d/default.conf

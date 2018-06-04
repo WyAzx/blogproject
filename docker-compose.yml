@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: ./compose/django/Dockerfile
     command: /gunicorn.sh
-    ports:
-      - "127.0.0.1:8011:8011"
 
   nginx:
     build:
@@ -17,4 +15,4 @@ services:
       - django
 
     ports:
-      - "127.0.0.1:80:80"
+      - "0.0.0.0:80:80"

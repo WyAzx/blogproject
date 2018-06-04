@@ -24,5 +24,3 @@ RUN chown -R django /app/static
 USER django
 
 WORKDIR /app
-
-EXPOSE 8011
